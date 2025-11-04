@@ -17,7 +17,7 @@ export default function Index() {
 
     try {
       setLoading(true);
-      await axios.post(`${API_BASE_URL}/jobs`, { title, category });
+      await axios.post(`${API_BASE_URL}/api/jobs`, { title, category });
       Alert.alert("✅ Success", "Job posted successfully!");
       setTitle("");
       setCategory("");
