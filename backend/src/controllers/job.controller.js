@@ -14,3 +14,9 @@ exports.createJob = (req, res) => {
 
     res.status(201).json(job);
 };
+
+exports.getJobs = (_req, res) => {
+    const jobs = jobService.getJobs();
+
+    res.status(201).json(jobs);
+};

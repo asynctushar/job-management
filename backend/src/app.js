@@ -16,7 +16,7 @@ const createApp = (io) => {
     });
 
     // Routes
-    app.use("/jobs", jobRoutes);
+    app.use("/api/jobs", jobRoutes);
 
     return app;
 };

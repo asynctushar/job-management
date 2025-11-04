@@ -16,11 +16,10 @@ class JobService {
         return job;
     }
 
-    acceptJob(jobId, providerName) {
+    acceptJob(jobId) {
         const job = this.jobs.find((j) => j.id === jobId);
         if (job && job.status === "PENDING") {
             job.status = "ACCEPTED";
-            job.acceptedBy = providerName;
             return job;
         }
         return null;
