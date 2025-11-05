@@ -9,7 +9,7 @@ const { initSockets } = require("./sockets");
 
         const io = socketIo(server, {
             cors: {
-                origin: "*",
+                origin: "http:localhost:8082",
                 methods: ["GET", "POST"],
             },
         });

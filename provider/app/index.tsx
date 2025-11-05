@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   FlatList,
-  StyleSheet,
-  Alert,
+  StyleSheet
 } from "react-native";
 import axios from "axios";
-import socket from "./services/socket";
-import { API_BASE_URL } from "./config/api";
 import { Job } from "./types/job.type";
+import io, { Socket } from "socket.io-client";
+import { API_BASE_URL } from "./config/api";
+
 
 export default function Index() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const socketRef = useRef<Socket | null>(null);
+
 
 
   // Accept job (emit socket event)
   const handleAccept = (jobId: string) => {
-    socket.emit("job:accept", { jobId });
+    if (!socketRef.current) return;
+
+    socketRef.current.emit("job:accept", { jobId });
   };
 
   // Reject job (locally)
@@ -26,41 +30,52 @@ export default function Index() {
     setJobs((prev) => prev.filter((j) => j.id !== jobId));
   };
 
-  useEffect(() => {
-    // Fetch jobs from REST API
-    (async () => {
-      try {
-        const res = await axios.get<Job[]>(`${API_BASE_URL}/api/jobs`);
-        const pendingJobs = res.data.filter((job) => job.status === "PENDING");
-        setJobs(pendingJobs);
-      } catch (error) {
-        console.error(error);
-        Alert.alert("Error", "Failed to load jobs");
-      }
-    })();
 
-    // 🔹 Listen for new job posted
-    socket.on("job:new", (job: Job) => {
-      console.log("New job received:", job);
-      setJobs((prev) => [job, ...prev]);
+  // Fetch jobs once
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get(`${API_BASE_URL}/api/jobs`);
+      setJobs(res.data.filter((job: Job) => job.status === "PENDING"));
+
+    })();
+  }, []);
+
+  // Initialize socket once
+  useEffect(() => {
+    if (!socketRef.current) {
+      socketRef.current = io(API_BASE_URL, { transports: ["websocket"] });
+
+    }
+
+    const socket = socketRef.current;
+
+    socket.on("connect", () => {
+      console.log("✅ Socket connected:", socket.id);
     });
 
-    // 🔹 Listen for job closed event
-    socket.on("job:closed", ({ job }: { job: Job; }) => {
-      console.log("Job closed:", job);
+    socket.on("job:new", (job: Job) => {
+      setJobs((prev) => [...prev, job]);
+    });
+
+    socket.on("job:closed", ({ job }) => {
       setJobs((prev) => prev.filter((j) => j.id !== job.id));
     });
 
-    // 🔹 Listen for errors
-    socket.on("job:error", (err: { message: string; }) => {
-      console.warn("Job error:", err);
-      Alert.alert("Error", err.message || "Unknown error");
+    socket.on("job:error", (err) => {
+      console.warn("⚠️ job:error", err.message);
     });
 
+    // Cleanup when component unmounts
     return () => {
-      socket.off("job:new");
-      socket.off("job:closed");
-      socket.off("job:error");
+      if (socketRef.current) {
+        console.log("🧹 Disconnecting socket:", socketRef.current.id);
+
+        socket.off("job:new");
+        socket.off("job:closed");
+        socket.off("job:error");
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
     };
   }, []);
 
