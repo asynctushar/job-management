@@ -26,13 +26,13 @@ EXPO_PUBLIC_API_BASE_URL=http://192.168.42.159:4000
 Find your LAN IP using:
 
 Windows:
-   ```bash
-  ipconfig
-   ```
+```bash
+ipconfig
+```
 
 macOS / Linux:
 ```bash
-  ifconfig
+ifconfig
 ```
 
 A .env.example file is included:
@@ -45,12 +45,12 @@ INSTALLATION
 
 Install dependencies:
 ```bash
-   npm install
+npm install
 ```
 
 Start the app:
 ```bash
-   npx expo start
+npx expo start
 ```
 
 You can open the app in:
@@ -69,7 +69,7 @@ This project uses file-based routing inside the "app" folder.
 RESET TO BLANK PROJECT
 -------------------------------------------------
 ```bash
-   npm run reset-project
+npm run reset-project
 ```
 
 -------------------------------------------------

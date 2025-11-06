@@ -29,12 +29,12 @@ npm install
 
 Start server:
 ```bash
-  npm start
+npm start
 ```
 
 Start in dev mode:
 ```bash
-  npm run dev
+npm run dev
 ```
 
 -------------------------------------------------
