@@ -177,7 +177,7 @@ MIT License – free to use, modify, and share.
 👤 AUTHOR
 -------------------------------------------------
 
-Tushar Biswas 
+Tushar Biswas  
 GitHub: https://github.com/asynctushar  
 Linkedin: https://www.linkedin.com/in/asynctushar  
 Upwork: https://www.upwork.com/freelancers/~0122c2f7d15270906e  
