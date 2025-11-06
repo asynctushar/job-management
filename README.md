@@ -178,9 +178,9 @@ MIT License – free to use, modify, and share.
 -------------------------------------------------
 
 Tushar Biswas 
-GitHub: https://github.com/asynctushar
-Linkedin: https://www.linkedin.com/in/asynctushar
-Upwork: https://www.upwork.com/freelancers/~0122c2f7d15270906e
-Fiverr: https://fiverr.com/asynctushar
-Dribbble: https://dribbble.com/asynctushar
+GitHub: https://github.com/asynctushar  
+Linkedin: https://www.linkedin.com/in/asynctushar  
+Upwork: https://www.upwork.com/freelancers/~0122c2f7d15270906e  
+Fiverr: https://fiverr.com/asynctushar  
+Dribbble: https://dribbble.com/asynctushar  
 
