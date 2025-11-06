@@ -9,14 +9,15 @@ const { initSockets } = require("./sockets");
 
         const io = socketIo(server, {
             cors: {
-                origin: "http:localhost:8082",
-                methods: ["GET", "POST"],
+                origin: "*",
+                methods: ["GET", "POST", "DELETE"],
             },
         });
 
         const app = createApp(io);
         server.on("request", app);
 
+        // Initialize socket modules
         await initSockets(io);
 
         const PORT = process.env.PORT || 4000;

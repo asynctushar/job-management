@@ -3,7 +3,7 @@
 This is an Expo application built as part of the Realtime Job Management System.
 It is used as:
 
-- Provider App → receives & accepts jobs
+- Poster App → creates jobs
 
 -------------------------------------------------
 ENVIRONMENT SETUP
@@ -26,13 +26,13 @@ EXPO_PUBLIC_API_BASE_URL=http://192.168.42.159:4000
 Find your LAN IP using:
 
 Windows:
-   ```bash
-  ipconfig
-   ```
+```bash
+   ipconfig
+```
 
 macOS / Linux:
 ```bash
-  ifconfig
+   ifconfig
 ```
 
 A .env.example file is included:
